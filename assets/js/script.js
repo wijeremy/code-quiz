@@ -4,196 +4,71 @@ var start = document.getElementById("start");
 var timeLeft = 30;
 var queue = 0;
 
-var questionWheel = [
+var jsQuestions = [
     [
         "The condition of an if statement is enclosed in ...",
-        ["squre braces", false],
-        ["curly braces", false],
-        ["parentheses", true],
-        ["quotation marks", false]
+        [
+            ["parentheses", true],
+            ["squre braces", false],
+            ["curly braces", false],
+            ["quotation marks", false]
+        ]
     ],
     [
         "In an object, parameters are separated by ...",
-        ["a comma", true],
-        ["a semi-colon", false],
-        ["a slash", false],
-        ["a line break", false],
-    ]
+        [
+            ["a comma", true],
+            ["a semi-colon", false],
+            ["a slash", false],
+            ["a line break", false]
+        ]
+    ],
+    [
+        "Which of the following is not a JavaScript data type?",
+        [
+            ["an array", true],
+            ["a number", false],
+            ["a boolean", false],
+            ["a string", false]
+        ]
+    ],
+    [
+        "The method isNaN tells if something is...",
+        [
+            ["not a number.", true],
+            ["not an integer.", false],
+            ["not a negative.", false],
+            ["bread.", false]
+        ]
+    ],
+    [
+        "Which keyword refers to the object from which it is called?",
+        [
+            ["this", true],
+            ["here", false],
+            ["mySelf", false],
+            ["true", false]
+        ]
+    ],
+    [
+        "A function inside an object is called a...",
+        [
+            ["method", true],
+            ["function", false],
+            ["parameter", false],
+            ["procedure", false]
+        ]
+    ],
+    [
+        "A variable inside an object is called a...",
+        [
+            ["parameter", true],
+            ["method", false],
+            ["sub-object", false],
+            ["mutable", false]
+        ]
+    ],
 ];
-
-var humanQuestions = [
-    [
-        "1 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "2 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "3 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "4 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "5 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "6 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "7 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "8 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "9 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "10 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "11 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "12 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "13 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "14 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "15 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "16 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "17 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "18 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ],
-    [
-        "19 is a question?",
-        [
-            ["haha yes", true],
-            ["fools rush in", false],
-            ["where wise men", false],
-            ["never go", false]
-        ]
-    ]
-]
 
 function shuffleArray(array) {
     var oldArray = [];
@@ -215,8 +90,7 @@ var myNewArray = shuffleArray(myArray);
 
 console.log(myNewArray);
 
-function runGame(){
-    function somefunction(questionList){
+function runGame(questionList){
     //first we randomize which questions show first
     var listShuffled = shuffleArray(questionList);
     //we'll start our current question at the beginning of our question array
@@ -251,8 +125,6 @@ function runGame(){
         }
     }
     questionDisplay();
-    };
-    somefunction(humanQuestions);
 };
 
-start.addEventListener("click", runGame);
+start.addEventListener("click", runGame(jsQuestions));
