@@ -1,8 +1,9 @@
 var display = document.getElementById("display");
 var start = document.getElementById("start");
-
-var timeLeft = 30;
-var queue = 0;
+var timeEl = document.getElementById("time");
+var isWin = false;
+var secondsLeft = 30;
+var frameRate = 0
 
 var jsQuestions = [
     [
@@ -90,13 +91,20 @@ var myNewArray = shuffleArray(myArray);
 
 console.log(myNewArray);
 
-function runGame(questionList){
+function runGame(){
+    //start the timer
+    setTime();
     //first we randomize which questions show first
-    var listShuffled = shuffleArray(questionList);
+    var listShuffled = shuffleArray(jsQuestions);
     //we'll start our current question at the beginning of our question array
-    var currentQuestion = 0
+    var currentQuestion = 0;
     //this function displays our current question
     function questionDisplay(){
+        if (currentQuestion == listShuffled.length){
+            youWin();
+            isWin = true;
+            return;
+        }
         display.innerHTML = "";
         //display question
         var question = document.createElement("h2");
@@ -104,7 +112,7 @@ function runGame(questionList){
         display.appendChild(question);
         //display answer buttons
         //first lets shuffle those possible answers
-        var randAnswerArray = shuffleArray(listShuffled[currentQuestion][1])
+        var randAnswerArray = shuffleArray(listShuffled[currentQuestion][1]);
         //then we itterate through them, displaying them as well as creating event listeners for them
         for (var i = 0; i < randAnswerArray.length; i++) {
             var answer = document.createElement("button");
@@ -115,16 +123,43 @@ function runGame(questionList){
                 if (this.getAttribute("data-key") == "true"){
                     console.log("hurray");
                     currentQuestion++;
-                    questionDisplay()
-                } else {
+                    questionDisplay();
+                } else if (this.getAttribute("data-key") == "false"){
                     console.log("oh no!")
                     currentQuestion++;
-                    questionDisplay()
-                }
+                    questionDisplay();
+                    secondsLeft = secondsLeft-10;
+                };
             });
-        }
-    }
+        };
+    };
     questionDisplay();
 };
 
-start.addEventListener("click", runGame(jsQuestions));
+
+function setTime() {
+    var timerInterval = setInterval(function() {
+        frameRate++;
+        if (frameRate == 20) {
+            frameRate = 0
+            secondsLeft--;
+            timeEl.textContent = secondsLeft + " seconds left.";
+            if (isWin) {
+                clearInterval(timerInterval);
+                youWin();
+            };  
+            if(secondsLeft === 0){
+                clearInterval(timerInterval);
+                display.textContent = "YOU LOSE"
+                display.setAttribute("style", "fontSize:50px, color:red")
+            };
+        }
+    }, 50);
+};
+
+function youWin() {
+    display.innerHTML = ""
+    display.textContent = "Final Score: " + secondsLeft;
+}
+
+start.addEventListener("click", runGame  );
