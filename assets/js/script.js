@@ -2,7 +2,7 @@ var display = document.getElementById("display");
 var start = document.getElementById("start");
 var timeEl = document.getElementById("time");
 var isWin = false;
-var secondsLeft = 30;
+var secondsLeft = 100000;
 var frameRate = 20;
 var frameRateInit = frameRate;
 
@@ -119,6 +119,7 @@ function runGame(){
             var answer = document.createElement("button");
             answer.textContent = randAnswerArray[i][0];
             answer.setAttribute("data-key", randAnswerArray[i][1]);
+            answer.setAttribute("class", "answerBtn");
             display.appendChild(answer);
             answer.addEventListener("click", function(){
                 if (this.getAttribute("data-key") == "true"){
@@ -127,8 +128,28 @@ function runGame(){
                     questionDisplay();
                 } else if (this.getAttribute("data-key") == "false"){
                     console.log("oh no!")
-                    currentQuestion++;
-                    questionDisplay();
+                    var timeOut = 10
+                    var timeOutEl = document.createElement("h2");
+                    timeOutEl.textContent = "";
+                    question.appendChild(timeOutEl);
+                    for (var i = 0; i < document.getElementsByClassName("answerBtn").length; i++) {
+                        document.getElementsByClassName("answerBtn")[i].disabled = true;
+                    }
+                    function downTime() {
+                        var timerInterval = setInterval(function() {
+                            console.log.timeOut;
+                            timeOut--;
+                            if (timeOut < 4 && timeOut > 0) {
+                                timeOutEl.textContent = timeOut;
+                            } else if (timeOut == 0) {
+                                clearInterval(timerInterval);
+                                currentQuestion++;
+                                questionDisplay();
+                            };
+
+                        }, 1000);
+                    };
+                    downTime();
                 };
             });
         };
@@ -140,7 +161,6 @@ function runGame(){
 function setTime() {
     var timerInterval = setInterval(function() {
         frameRate--;
-        console.log(frameRate)
         if (frameRate == 0) {
             frameRate = frameRateInit 
             secondsLeft--;
@@ -153,6 +173,7 @@ function setTime() {
                 clearInterval(timerInterval);
                 display.textContent = "YOU LOSE"
                 display.setAttribute("style", "fontSize:50px, color:red")
+                getReset();
             };
         }
     }, 1000/frameRate);
@@ -161,6 +182,14 @@ function setTime() {
 function youWin() {
     display.innerHTML = ""
     display.textContent = "Final Score: " + secondsLeft;
+    getReset();
 }
-
-start.addEventListener("click", runGame  );
+function getReset() {
+    var resetBtn = document.createElement("button");
+    resetBtn.textContent = "RESET";
+    display.appendChild(resetBtn)
+    resetBtn.addEventListener("click", function(){
+        location.reload();
+    })
+}
+start.addEventListener("click", runGame);
