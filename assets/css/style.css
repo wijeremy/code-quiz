@@ -1,0 +1,36 @@
+html {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+body {
+    background-image: url(../media/background.png);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 120vh;
+}
+#display {
+    padding: 5%;
+    width: 100%;
+    position: relative;
+    height: 30vh;
+}
+
+#messageBoard {
+    width: 90%;
+    height: 100%;
+    position: absolute;
+    z-index: -5;
+}
+
+#barrels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px 10% 5%;
+}
+.barrel {
+    width: 20%;
+}
