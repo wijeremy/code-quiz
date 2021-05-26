@@ -3,7 +3,8 @@ var start = document.getElementById("start");
 var timeEl = document.getElementById("time");
 var isWin = false;
 var secondsLeft = 30;
-var frameRate = 0
+var frameRate = 20;
+var frameRateInit = frameRate;
 
 var jsQuestions = [
     [
@@ -128,7 +129,6 @@ function runGame(){
                     console.log("oh no!")
                     currentQuestion++;
                     questionDisplay();
-                    secondsLeft = secondsLeft-10;
                 };
             });
         };
@@ -139,9 +139,10 @@ function runGame(){
 
 function setTime() {
     var timerInterval = setInterval(function() {
-        frameRate++;
-        if (frameRate == 20) {
-            frameRate = 0
+        frameRate--;
+        console.log(frameRate)
+        if (frameRate == 0) {
+            frameRate = frameRateInit 
             secondsLeft--;
             timeEl.textContent = secondsLeft + " seconds left.";
             if (isWin) {
@@ -154,7 +155,7 @@ function setTime() {
                 display.setAttribute("style", "fontSize:50px, color:red")
             };
         }
-    }, 50);
+    }, 1000/frameRate);
 };
 
 function youWin() {
