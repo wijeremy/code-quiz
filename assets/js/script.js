@@ -1,6 +1,9 @@
+var monkey
+var monkeyMake
 var display = document.getElementById("display");
 var start = document.getElementById("start");
 var timeEl = document.getElementById("time");
+var barrels = document.getElementById("barrels");
 var isWin = false;
 var secondsLeft = 100000;
 var frameRate = 20;
@@ -88,17 +91,32 @@ function shuffleArray(array) {
         oldArray.splice(rand,1);
     }
     return newArray;
+};
+
+function makeMonkey(barrel) {
+    monkeyMake = document.createElement("img");
+    monkeyMake.setAttribute("src", "./assets/media/monkey.png");
+    monkeyMake.setAttribute("alt", "what a silly little monkey");
+    monkeyMake.setAttribute("id", "monkey");
+    barrel.appendChild(monkeyMake);
+    monkey = document.getElementById("monkey");
 }
 
-var monkey = document.createElement("img");
-monkey.setAttribute("src", "./assets/media/monkey.png");
-monkey.setAttribute("alt", "what a silly little monkey");
-monkey.setAttribute("id", "monkey")
-barrel1.appendChild(monkey);
+function makeCyberMonkey(barrel) {
+    monkeyMake = document.createElement("img");
+    monkeyMake.setAttribute("src", "./assets/media/CYBERmonkey.png");
+    monkeyMake.setAttribute("alt", "what a silly little monkey");
+    monkeyMake.setAttribute("id", "monkey");
+    barrel.appendChild(monkeyMake);
+    monkey = document.getElementById("monkey");
+}
 
-monkey.setAttribute("class", "up")
-
-
+function monkeyUp() {
+    monkey.setAttribute("class", "up");
+}
+function monkeyLeave () {
+    monkey.parentElement.removeChild(monkey)
+}
 function runGame(){
     barrel1.removeEventListener("click", runGame);
     //start the timer
@@ -120,9 +138,6 @@ function runGame(){
             var timeOutEl = document.createElement("h2");
             timeOutEl.textContent = "";
             question.appendChild(timeOutEl);
-            for (var i = 0; i < document.getElementsByClassName("answerBtn").length; i++) {
-                document.getElementsByClassName("answerBtn")[i].disabled = true;
-            }
             function downTime() {
                 btnOff();
                 var timerInterval = setInterval(function() {
@@ -155,6 +170,7 @@ function runGame(){
 
     //this function displays our current question
     function questionDisplay(){
+        monkeyLeave();
         if (currentQuestion == listShuffled.length){
             youWin();
             isWin = true;
@@ -167,9 +183,17 @@ function runGame(){
         var randAnswerArray = shuffleArray(listShuffled[currentQuestion][1]);
         //then we itterate through them to add text content
         for (var i = 0; i < randAnswerArray.length; i++) {
-            var answer = document.getElementById("barrels").children[i];
+            var answer = barrels.children[i];
             answer.children[1].textContent = randAnswerArray[i][0];
             answer.setAttribute("data-key", randAnswerArray[i][1]);
+            console.log(randAnswerArray[i][1]);
+            if (answer.getAttribute("data-key") == "true") {
+                console.log("make monkeys!");
+                makeMonkey(answer);
+                monkeyUp();
+            } else {
+                console.log("no monkey for you")
+            };
         };
     };       
     questionDisplay();
@@ -185,12 +209,11 @@ function setTime() {
             timeEl.textContent = secondsLeft + " seconds left.";
             if (isWin) {
                 clearInterval(timerInterval);
-                youWin();
             };  
             if(secondsLeft === 0){
                 clearInterval(timerInterval);
-                display.textContent = "YOU LOSE"
-                display.setAttribute("style", "fontSize:50px, color:red")
+                question.textContent = "YOU LOSE"
+                question.setAttribute("style", "fontSize:50px; color:red")
                 getReset();
             };
         }
@@ -214,6 +237,9 @@ function getReset() {
 function init() {
     barrel1.children[1].textContent = "start";
     barrel1.addEventListener("click", runGame);
+    // makeMonkey(barrel1);
+    makeCyberMonkey(barrel2)
+    monkeyUp();
 }
 init();
 // start.addEventListener("click", runGame);

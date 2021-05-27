@@ -90,6 +90,16 @@ body {
     position: absolute
 }
 
+#monkey {
+    width: 80%;
+    position: absolute;
+    z-index: -10;
+}
+
+.up {
+    top: -16vh;
+}
+
 @media screen and (max-width: 140vh) {
     body, #barrels {
         width: 50vh;
@@ -102,6 +112,10 @@ body {
         width: 15vh;
         height: 20vh;
     }
+    .up {
+        top: -10vh;
+    }
+
     #barrel1 {
         left: 5vh;
         top: 5vh;
@@ -123,14 +137,4 @@ body {
         right: 5vh;
         bottom: 5vh;
     }
-}
-
-#monkey {
-    width: 80%;
-    position: absolute;
-    z-index: -10;
-}
-
-#monkey.up {
-    top: -16vh;
 }
