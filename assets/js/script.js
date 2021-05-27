@@ -5,7 +5,11 @@ var isWin = false;
 var secondsLeft = 100000;
 var frameRate = 20;
 var frameRateInit = frameRate;
-
+var question = display.children[1];
+var barrel1 = document.getElementById("barrel1");
+var barrel2 = document.getElementById("barrel2");
+var barrel3 = document.getElementById("barrel3");
+var barrel4 = document.getElementById("barrel4");
 var jsQuestions = [
     [
         "The condition of an if statement is enclosed in ...",
@@ -86,19 +90,69 @@ function shuffleArray(array) {
     return newArray;
 }
 
-var myArray = ["a", "b", "c", "d", "e", "f"];
+var monkey = document.createElement("img");
+monkey.setAttribute("src", "./assets/media/monkey.png");
+monkey.setAttribute("alt", "what a silly little monkey");
+monkey.setAttribute("id", "monkey")
+barrel1.appendChild(monkey);
 
-var myNewArray = shuffleArray(myArray);
+monkey.setAttribute("class", "up")
 
-console.log(myNewArray);
 
 function runGame(){
+    barrel1.removeEventListener("click", runGame);
     //start the timer
     setTime();
     //first we randomize which questions show first
     var listShuffled = shuffleArray(jsQuestions);
     //we'll start our current question at the beginning of our question array
     var currentQuestion = 0;
+    //before we get to displaying, let's turn our buttons on to game mode
+    function checkTrue() {
+        if (this.getAttribute("data-key") == "true"){
+            console.log("hurray");
+            currentQuestion++;
+            console.log(currentQuestion);
+            questionDisplay();
+        } else if (this.getAttribute("data-key") == "false"){
+            console.log("oh no!")
+            var timeOut = 10
+            var timeOutEl = document.createElement("h2");
+            timeOutEl.textContent = "";
+            question.appendChild(timeOutEl);
+            for (var i = 0; i < document.getElementsByClassName("answerBtn").length; i++) {
+                document.getElementsByClassName("answerBtn")[i].disabled = true;
+            }
+            function downTime() {
+                btnOff();
+                var timerInterval = setInterval(function() {
+                    timeOut--;
+                    if (timeOut < 4 && timeOut > 0) {
+                        timeOutEl.textContent = timeOut;
+                    } else if (timeOut == 0) {
+                        clearInterval(timerInterval);
+                        currentQuestion++;
+                        btnOn();
+                        questionDisplay();
+                    };
+    
+                }, 1000);
+            };
+            downTime();
+        };
+    };
+    function btnOn() {
+        for (var i = 0; i < 4; i++) {
+            document.getElementById("barrels").children[i].addEventListener("click", checkTrue)
+        };
+    };
+    btnOn();
+    function btnOff(){
+        for (var i = 0; i < 4; i++) {
+            document.getElementById("barrels").children[i].removeEventListener("click", checkTrue)
+        };
+    };
+
     //this function displays our current question
     function questionDisplay(){
         if (currentQuestion == listShuffled.length){
@@ -106,54 +160,18 @@ function runGame(){
             isWin = true;
             return;
         }
-        display.innerHTML = "";
         //display question
-        var question = document.createElement("h2");
-        question.textContent = listShuffled[currentQuestion][0];
-        display.appendChild(question);
+        question.textContent = listShuffled[currentQuestion][0]
         //display answer buttons
         //first lets shuffle those possible answers
         var randAnswerArray = shuffleArray(listShuffled[currentQuestion][1]);
-        //then we itterate through them, displaying them as well as creating event listeners for them
+        //then we itterate through them to add text content
         for (var i = 0; i < randAnswerArray.length; i++) {
-            var answer = document.createElement("button");
-            answer.textContent = randAnswerArray[i][0];
+            var answer = document.getElementById("barrels").children[i];
+            answer.children[1].textContent = randAnswerArray[i][0];
             answer.setAttribute("data-key", randAnswerArray[i][1]);
-            answer.setAttribute("class", "answerBtn");
-            display.appendChild(answer);
-            answer.addEventListener("click", function(){
-                if (this.getAttribute("data-key") == "true"){
-                    console.log("hurray");
-                    currentQuestion++;
-                    questionDisplay();
-                } else if (this.getAttribute("data-key") == "false"){
-                    console.log("oh no!")
-                    var timeOut = 10
-                    var timeOutEl = document.createElement("h2");
-                    timeOutEl.textContent = "";
-                    question.appendChild(timeOutEl);
-                    for (var i = 0; i < document.getElementsByClassName("answerBtn").length; i++) {
-                        document.getElementsByClassName("answerBtn")[i].disabled = true;
-                    }
-                    function downTime() {
-                        var timerInterval = setInterval(function() {
-                            console.log.timeOut;
-                            timeOut--;
-                            if (timeOut < 4 && timeOut > 0) {
-                                timeOutEl.textContent = timeOut;
-                            } else if (timeOut == 0) {
-                                clearInterval(timerInterval);
-                                currentQuestion++;
-                                questionDisplay();
-                            };
-
-                        }, 1000);
-                    };
-                    downTime();
-                };
-            });
         };
-    };
+    };       
     questionDisplay();
 };
 
@@ -180,10 +198,10 @@ function setTime() {
 };
 
 function youWin() {
-    display.innerHTML = ""
-    display.textContent = "Final Score: " + secondsLeft;
+    question.textContent = "Final Score: " + secondsLeft;
     getReset();
-}
+};
+
 function getReset() {
     var resetBtn = document.createElement("button");
     resetBtn.textContent = "RESET";
@@ -191,5 +209,11 @@ function getReset() {
     resetBtn.addEventListener("click", function(){
         location.reload();
     })
+};
+
+function init() {
+    barrel1.children[1].textContent = "start";
+    barrel1.addEventListener("click", runGame);
 }
-start.addEventListener("click", runGame);
+init();
+// start.addEventListener("click", runGame);
