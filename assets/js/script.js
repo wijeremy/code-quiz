@@ -127,12 +127,14 @@ function runGame(){
     var currentQuestion = 0;
     //before we get to displaying, let's turn our buttons on to game mode
     function checkTrue() {
+        monkeyUp();
         if (this.getAttribute("data-key") == "true"){
             console.log("hurray");
             currentQuestion++;
             console.log(currentQuestion);
             questionDisplay();
         } else if (this.getAttribute("data-key") == "false"){
+            monkeyUp();
             console.log("oh no!")
             var timeOut = 10
             var timeOutEl = document.createElement("h2");
@@ -189,11 +191,9 @@ function runGame(){
             console.log(randAnswerArray[i][1]);
             if (answer.getAttribute("data-key") == "true") {
                 console.log("make monkeys!");
-                makeMonkey(answer);
-                monkeyUp();
-            } else {
-                console.log("no monkey for you")
-            };
+                makeCyberMonkey(answer);
+
+            }; 
         };
     };       
     questionDisplay();

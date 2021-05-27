@@ -94,10 +94,11 @@ body {
     width: 80%;
     position: absolute;
     z-index: -10;
+    transition: all .5s;
 }
 
 .up {
-    top: -16vh;
+    transform: translate(0, -16vh);
 }
 
 @media screen and (max-width: 140vh) {
