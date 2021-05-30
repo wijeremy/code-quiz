@@ -114,10 +114,17 @@ function makeCyberMonkey(barrel) {
 function monkeyUp() {
     monkey.setAttribute("class", "up");
 }
-function monkeyLeave () {
-    monkey.parentElement.removeChild(monkey)
+function monkeyFly() {
+    monkey.setAttribute("class", "fly");
 }
+function remove(element) {
+    element.parentNode.removeChild(element);
+}
+
 function runGame(){
+    console.log(monkey);
+    remove(monkey);
+    makeMonkey(barrel1);
     barrel1.removeEventListener("click", runGame);
     //start the timer
     setTime();
@@ -129,13 +136,19 @@ function runGame(){
     function checkTrue() {
         monkeyUp();
         if (this.getAttribute("data-key") == "true"){
-            console.log("hurray");
+            monkeyUp();
             currentQuestion++;
             console.log(currentQuestion);
-            questionDisplay();
+            setTimeout(questionDisplay, 500);
         } else if (this.getAttribute("data-key") == "false"){
+            console.log(monkey);
+            remove(monkey);
+            for (var i = 0; i < 4; i++) {
+                if (barrels.children[i].getAttribute("data-key") == "true") {
+                    makeCyberMonkey(barrels.children[i])
+                }
+            }
             monkeyUp();
-            console.log("oh no!")
             var timeOut = 10
             var timeOutEl = document.createElement("h2");
             timeOutEl.textContent = "";
@@ -172,7 +185,7 @@ function runGame(){
 
     //this function displays our current question
     function questionDisplay(){
-        monkeyLeave();
+        remove(monkey);
         if (currentQuestion == listShuffled.length){
             youWin();
             isWin = true;
@@ -190,10 +203,8 @@ function runGame(){
             answer.setAttribute("data-key", randAnswerArray[i][1]);
             console.log(randAnswerArray[i][1]);
             if (answer.getAttribute("data-key") == "true") {
-                console.log("make monkeys!");
                 makeCyberMonkey(answer);
-
-            }; 
+            }
         };
     };       
     questionDisplay();

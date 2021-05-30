@@ -94,13 +94,16 @@ body {
     width: 80%;
     position: absolute;
     z-index: -10;
-    transition: all .5s;
+    transition: all 750ms;
 }
 
 .up {
     transform: translate(0, -16vh);
 }
 
+.fly {
+    transform: translate(0, -100vh)
+}
 @media screen and (max-width: 140vh) {
     body, #barrels {
         width: 50vh;
@@ -110,32 +113,32 @@ body {
         height: 60vh;
     }
     .answerBtn {
-        width: 15vh;
-        height: 20vh;
+        width: 12vh;
+        height: 16vh;
     }
     .up {
-        top: -10vh;
+        transform: translate(0, -8vh);
     }
 
     #barrel1 {
-        left: 5vh;
-        top: 5vh;
+        left: 8vh;
+        top: 8vh;
     }
 
     #barrel2 {
         left: auto;
-        right: 5vh;
-        top: 5vh;
+        right: 8vh;
+        top: 8vh;
     }
 
     #barrel3 {
-        left: 5vh;
+        left: 8vh;
         bottom: 5vh;
         right: auto;
     }
 
     #barrel4 {
-        right: 5vh;
+        right: 8vh;
         bottom: 5vh;
     }
 }
