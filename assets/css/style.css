@@ -177,3 +177,23 @@ body {
 .hide {
     display: none;
 }
+#playAgain {
+    align-self: center;
+    top: 2vh;
+}
+#scores {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+    justify-items: space-between;
+}
+#reset {
+    align-self: center;
+    bottom: 2vh
+}
+.scoreBox {
+    align-self: center;
+    font-size: medium;
+}

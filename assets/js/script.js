@@ -28,60 +28,60 @@ var jsQuestions = [
             ["quotation marks", false]
         ]
     ],
-    [
-        "In an object, parameters are separated by ...",
-        [
-            ["a comma", true],
-            ["a semi-colon", false],
-            ["a slash", false],
-            ["a line break", false]
-        ]
-    ],
-    [
-        "Which of the following is not a JavaScript data type?",
-        [
-            ["an array", true],
-            ["a number", false],
-            ["a boolean", false],
-            ["a string", false]
-        ]
-    ],
-    [
-        "The method isNaN tells if something is...",
-        [
-            ["not a number.", true],
-            ["not an integer.", false],
-            ["not a negative.", false],
-            ["bread.", false]
-        ]
-    ],
-    [
-        "Which keyword refers to the object from which it is called?",
-        [
-            ["this", true],
-            ["here", false],
-            ["mySelf", false],
-            ["true", false]
-        ]
-    ],
-    [
-        "A function inside an object is called a...",
-        [
-            ["method", true],
-            ["function", false],
-            ["parameter", false],
-            ["procedure", false]
-        ]
-    ],
-    [
-        "A variable inside an object is called a...",
-        [
-            ["parameter", true],
-            ["method", false],
-            ["sub-object", false],
-            ["mutable", false]
-        ]
-    ],
+    // [
+    //     "In an object, parameters are separated by ...",
+    //     [
+    //         ["a comma", true],
+    //         ["a semi-colon", false],
+    //         ["a slash", false],
+    //         ["a line break", false]
+    //     ]
+    // ],
+    // [
+    //     "Which of the following is not a JavaScript data type?",
+    //     [
+    //         ["an array", true],
+    //         ["a number", false],
+    //         ["a boolean", false],
+    //         ["a string", false]
+    //     ]
+    // ],
+    // [
+    //     "The method isNaN tells if something is...",
+    //     [
+    //         ["not a number.", true],
+    //         ["not an integer.", false],
+    //         ["not a negative.", false],
+    //         ["bread.", false]
+    //     ]
+    // ],
+    // [
+    //     "Which keyword refers to the object from which it is called?",
+    //     [
+    //         ["this", true],
+    //         ["here", false],
+    //         ["mySelf", false],
+    //         ["true", false]
+    //     ]
+    // ],
+    // [
+    //     "A function inside an object is called a...",
+    //     [
+    //         ["method", true],
+    //         ["function", false],
+    //         ["parameter", false],
+    //         ["procedure", false]
+    //     ]
+    // ],
+    // [
+    //     "A variable inside an object is called a...",
+    //     [
+    //         ["parameter", true],
+    //         ["method", false],
+    //         ["sub-object", false],
+    //         ["mutable", false]
+    //     ]
+    // ]
 ];
 
 function shuffleArray(array) {
@@ -124,8 +124,6 @@ function monkeyFly() {
 }
 function remove(element) {
     if (element.parentNode !== null){
-        console.log(element)
-        console.log(element.parentNode)
         element.parentNode.removeChild(element);
     }
 }
@@ -158,7 +156,6 @@ function runGame(){
         if (this.getAttribute("data-key") == "true"){
             monkeyUp();
             currentQuestion++;
-            console.log(currentQuestion);
             setTimeout(questionDisplay, 500);
         } else if (this.getAttribute("data-key") == "false"){
             btnOff();
@@ -218,7 +215,6 @@ function runGame(){
             var answer = barrels.children[i];
             answer.children[1].textContent = randAnswerArray[i][0];
             answer.children[1].setAttribute("data-key", randAnswerArray[i][1]);
-            console.log(randAnswerArray[i][1]);
             if (answer.getAttribute("data-key") == "true") {
                 makeCyberMonkey(answer);
             }
@@ -250,9 +246,26 @@ function runGame(){
 
 
 
+
 function youWin() {
     question.textContent = "Final Score: " + secondsLeft;
-    init();
+    window.location.href = "./high-scores.html";
+    var tempArray = [];
+    localStorage.setItem("isWin", true);
+    function getName(){
+        var name = window.prompt("your score was " + secondsLeft + "\n enter your name \n please only use three characters");
+        if (name.length = 3) {
+            tempArray.push(name);
+        } else {
+            window.alert("please only use three characters")
+        }
+    }
+    getName()
+    
+    tempArray.push(secondsLeft);
+    localStorage.setItem("score", JSON.stringify(tempArray))
+    console.log(localStorage.getItem("score"));
+
 };
 function highScore(){
     window.location.href = "./high-scores.html"
