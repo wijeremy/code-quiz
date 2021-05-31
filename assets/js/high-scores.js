@@ -30,11 +30,8 @@ reset.addEventListener("click", function(){
 
 if (localBoard == null) {
     var tempArray = sortArray(scoreBoard);
-    console.log(tempArray)
     localStorage.setItem("board", JSON.stringify(tempArray));
 }
-
-console.log(JSON.parse(localBoard));
 
 function sortArray(array) {
     var newArray = [];
@@ -91,7 +88,7 @@ function newHighScore(score, board) {
         };
     };
     return board;
-}
+};
 
 function setNewHighScore() {
     if (isWin == "true") {
@@ -101,14 +98,12 @@ function setNewHighScore() {
         tempBoard = JSON.parse(localBoard)
         var newBoard = newHighScore(tempScore, tempBoard);
         localStorage.setItem("board", JSON.stringify(newBoard));
-        console.log("new high score")
         localStorage.setItem("isWin", false)
         location.reload();
     };
 };
 setNewHighScore();
-console.log(document.getElementById("board"))
-console.log(document.getElementById("board").children[1].children[0].children[1])
+
 function renderBoard(array) {
     var tempArray = JSON.parse(array)
     for (var i = 0; i < tempArray.length; i++) {
@@ -118,9 +113,6 @@ function renderBoard(array) {
         var score = tempArray[i][1]
         nameSlot.textContent = name;
         scoreSlot.textContent = score;
-    }
-}
-
-renderBoard(localBoard)
-
-console.log(isWin)
+    };
+};
+renderBoard(localBoard);

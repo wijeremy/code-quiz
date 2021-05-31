@@ -1,5 +1,5 @@
-var monkey
-var monkeyMake
+var monkey;
+var monkeyMake;
 var display = document.getElementById("display");
 var start = document.getElementById("start");
 var timeEl = document.getElementById("time");
@@ -28,60 +28,60 @@ var jsQuestions = [
             ["quotation marks", false]
         ]
     ],
-    // [
-    //     "In an object, parameters are separated by ...",
-    //     [
-    //         ["a comma", true],
-    //         ["a semi-colon", false],
-    //         ["a slash", false],
-    //         ["a line break", false]
-    //     ]
-    // ],
-    // [
-    //     "Which of the following is not a JavaScript data type?",
-    //     [
-    //         ["an array", true],
-    //         ["a number", false],
-    //         ["a boolean", false],
-    //         ["a string", false]
-    //     ]
-    // ],
-    // [
-    //     "The method isNaN tells if something is...",
-    //     [
-    //         ["not a number.", true],
-    //         ["not an integer.", false],
-    //         ["not a negative.", false],
-    //         ["bread.", false]
-    //     ]
-    // ],
-    // [
-    //     "Which keyword refers to the object from which it is called?",
-    //     [
-    //         ["this", true],
-    //         ["here", false],
-    //         ["mySelf", false],
-    //         ["true", false]
-    //     ]
-    // ],
-    // [
-    //     "A function inside an object is called a...",
-    //     [
-    //         ["method", true],
-    //         ["function", false],
-    //         ["parameter", false],
-    //         ["procedure", false]
-    //     ]
-    // ],
-    // [
-    //     "A variable inside an object is called a...",
-    //     [
-    //         ["parameter", true],
-    //         ["method", false],
-    //         ["sub-object", false],
-    //         ["mutable", false]
-    //     ]
-    // ]
+    [
+        "In an object, parameters are separated by ...",
+        [
+            ["a comma", true],
+            ["a semi-colon", false],
+            ["a slash", false],
+            ["a line break", false]
+        ]
+    ],
+    [
+        "Which of the following is not a JavaScript data type?",
+        [
+            ["an array", true],
+            ["a number", false],
+            ["a boolean", false],
+            ["a string", false]
+        ]
+    ],
+    [
+        "The method isNaN tells if something is...",
+        [
+            ["not a number.", true],
+            ["not an integer.", false],
+            ["not a negative.", false],
+            ["bread.", false]
+        ]
+    ],
+    [
+        "Which keyword refers to the object from which it is called?",
+        [
+            ["this", true],
+            ["here", false],
+            ["mySelf", false],
+            ["true", false]
+        ]
+    ],
+    [
+        "A function inside an object is called a...",
+        [
+            ["method", true],
+            ["function", false],
+            ["parameter", false],
+            ["procedure", false]
+        ]
+    ],
+    [
+        "A variable inside an object is called a...",
+        [
+            ["parameter", true],
+            ["method", false],
+            ["sub-object", false],
+            ["mutable", false]
+        ]
+    ]
 ];
 
 function shuffleArray(array) {
@@ -105,7 +105,7 @@ function makeMonkey(barrel) {
     monkeyMake.setAttribute("id", "monkey");
     barrel.appendChild(monkeyMake);
     monkey = document.getElementById("monkey");
-}
+};
 
 function makeCyberMonkey(barrel) {
     monkeyMake = document.createElement("img");
@@ -114,22 +114,26 @@ function makeCyberMonkey(barrel) {
     monkeyMake.setAttribute("id", "monkey");
     barrel.appendChild(monkeyMake);
     monkey = document.getElementById("monkey");
-}
+};
 
 function monkeyUp() {
     monkey.setAttribute("class", "up");
-}
+};
+
 function monkeyFly() {
     monkey.setAttribute("class", "fly");
-}
+};
+
 function remove(element) {
     if (element.parentNode !== null){
         element.parentNode.removeChild(element);
     }
-}
+};
+
 function hide(element) {
     element.setAttribute("style", "display: none");
 };
+
 function show(element) {
     element.setAttribute("style", "display: flex");
 };
@@ -185,11 +189,13 @@ function runGame(){
             downTime();
         };
     };
+
     function btnOn() {
         for (var i = 0; i < 4; i++) {
             document.getElementById("barrels").children[i].children[1].addEventListener("click", checkTrue)
         };
     };
+
     btnOn();
     function btnOff(){
         for (var i = 0; i < 4; i++) {
@@ -261,15 +267,15 @@ function youWin() {
         }
     }
     getName()
-    
     tempArray.push(secondsLeft);
     localStorage.setItem("score", JSON.stringify(tempArray))
-    console.log(localStorage.getItem("score"));
 
 };
+
 function highScore(){
     window.location.href = "./high-scores.html"
-}
+};
+
 function init() {
     hide(timeEl)
     barrel1Btn.textContent = "HIGH SCORE";
@@ -281,5 +287,5 @@ function init() {
     hide(barrel3Btn);
     hide(barrel4Btn);
     secondsLeft = secondsLeftInit;
-}
+};
 init();

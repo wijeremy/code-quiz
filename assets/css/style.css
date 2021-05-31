@@ -38,7 +38,7 @@ body {
 .textBox {
     background-color: brown;
     color: yellow;
-    font-family: Comic Sans MS, Comic Sans, cursive;
+    font-family: 'Londrina Solid', cursive;
     font-size: 3vh;
     text-align: center;
     padding: 1vh;
@@ -47,7 +47,7 @@ body {
 .btn-custom {
     background-color: brown;
     color: yellow;
-    font-family: Comic Sans MS, Comic Sans, cursive;
+    font-family: 'Londrina Solid', cursive;
     font-size: 3vh;
     text-align: center;
     padding: 1vh;
