@@ -38,7 +38,7 @@ body {
 .textBox {
     background-color: brown;
     color: yellow;
-    font-family: 'Londrina Solid', sans-serif;
+    font-family: 'Londrina Solid', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 3vh;
     text-align: center;
     padding: 1vh;
@@ -47,7 +47,7 @@ body {
 .btn-custom {
     background-color: brown;
     color: yellow;
-    font-family: 'Londrina Solid', sans-serif;
+    font-family: 'Londrina Solid', 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 3vh;
     text-align: center;
     padding: 1vh;
