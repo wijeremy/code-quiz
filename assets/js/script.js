@@ -234,7 +234,7 @@ function runGame(){
             if (frameRate == 0) {
                 frameRate = frameRateInit 
                 secondsLeft--;
-                timeEl.textContent = secondsLeft + " seconds left.";
+                timeEl.textContent = secondsLeft + " BANANIUM RODS REMAINING.";
                 if (isWin) {
                     clearInterval(timerInterval);
                 };  

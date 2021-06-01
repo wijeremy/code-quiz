@@ -47,7 +47,8 @@ I had a week to get this project done, and I finished this part fairly early. I 
         * If it's incorrect, wait 10 seconds and then display the next question.  
     * Initialize the questionDisplay() function:
         * A question will be fed into the jumbotron.
-        * Its answers will be fed into the buttons
+        * Its answers will be fed into the buttons.
+        * The veracity of the answer should be added at a data attribute to that button.
         * The questions should be in a random order.
         * The answers should be in a random order.
         * Each time a question is used, we will tick up on the currentQuestion variable (which starts at 0).
@@ -57,7 +58,7 @@ I had a week to get this project done, and I finished this part fairly early. I 
 All of this was fairly straight forward. It was a lot of moving parts, but let me go through them.
 
 ### jsQuestions
-Each index of jsQuestions contains its own question/answer array, which looked sometihng like this:
+Each index of jsQuestions contains its own question/answer array, which looked something like this:
 
 ```JavaScript
 var jsQuestions = [
@@ -87,9 +88,9 @@ This formatting was reasonably flexible, and I had hopes of throwing in other qu
 ### runGame()
 This first part of this function is basically house keeping. The home screen gets wiped away. The timer gets started and displayed. We set some variables we'll need. We also use the shuffle array function I made for my [secure password generator](https://github.com/wijeremy/Secure-Password-Generator) to randomize the order we'll display jsQuestions in. 
 
-Another big thing that happens is, once all the buttons are in place, we give them an on click event listener to run the checkTrue function. But before we get into that, I also want to mention this is done in a function named btnOn. We also make a sister function btnOff that can remove those event listeners later. This way, we have control over when the buttons are on and off durring certain events in the game.
+Another big thing that happens is, once all the buttons are in place, we give them an on click event listener to run the checkTrue() function. But before we get into that, I also want to mention this is done in a function named btnOn(). We also make a sister function btnOff() that can remove those event listeners later. This way, we have control over when the buttons are on and off durring certain events in the game.
 
-Before I describe the checkTrue() function, it will be helpful to go over the questionDisplay() function. It basically reads like the notes I put in the above js of the jsQuestions mock up. First we see if the variable currentQuestions equals the length of the array we want to pull questions out of, because if it does, then we've gone though all the questions and we should end the game. Assuming that doesn't happen, we go to the index equal to currenQuestion of our question bank (which, by the way, is a new array named listShuffled which is what we set our shuffleArray(jsQuestions) equal to). That is to say, if currentQuestion was equal to n (we were on the fourth question), we would go to index n of our question bank (listShuffled). Then we take the question part of that index (listShuffled[n][0]) and display it in the jumbotron. Then we iterate through the answer part of that index (listShuffled[n][1]). For each answer in that array, we put the text half as the text content of the button, and use setAttribute() to set an attribute named "data-key" to the value of "veracity" half of that answer.
+Before I describe the checkTrue() function, it will be helpful to go over the questionDisplay() function. It basically reads like the notes I put in the above js of the jsQuestions mock up. First we see if the variable currentQuestions equals the length of the array we want to pull questions out of, because if it does, then we've gone though all the questions and we should end the game. Assuming that doesn't happen, we go to the index equal to currenQuestion of our question bank (which, by the way, is a new array named listShuffled which is what we set our shuffleArray(jsQuestions) equal to). That is to say, if currentQuestion was equal to n (we were on the (n+1)th question), we would go to index n of our question bank (listShuffled). Then we take the question part of that index (listShuffled[n][0]) and display it in the jumbotron. Then we iterate through the answer part of that index (listShuffled[n][1]). For each answer in that array, we put the text half as the text content of the button, and use setAttribute() to set an attribute named "data-key" to the value of the "veracity" half of that answer.
 
 This is what the checkTrue() function is looking for. Whenever a button is clicked, if that button's "data-key" attribute is "true", the game knows you got a correct answer, and will simply move on to the next question. If the button's "data-key" is "false", then the game will pause for 10 seconds. (Eventually we will add a way for you to know which answer is correct, but that is coming up in the next section). 
 
@@ -119,7 +120,7 @@ function setTime() {
     };
 ```
 
-So, right off the bat, there might be something interesting added here. I'm sure there is a more elegant way of handling it, but I incorporated a way to boost the "framerate" of the timer. I was frustrated getting to the end of a quiz only to have the game take a second off the clock after the game was over. I realize now that I could have it only take time off the clock if the game was still going, but I wanted to see how this could work. Basically, there is a countdown inside the timer for the framerate. It's like telling the function "what would you like to count to every second, and every time you count to that number tell me a second has gone by". A little convoluted maybe, but it was interesting to see the second argument in the setInterval() function take a variable. 
+The first thing I'd like to point out was possibly the first but certainly not the last example of over solving a problem. I'm sure there is a more elegant way of handling it, but I incorporated a way to boost the "framerate" of the timer. I was frustrated getting to the end of a quiz only to have the game take a second off the clock after the game was over. I realize now that I could have it only take time off the clock if the game was still going, but I wanted to see how this could work. Basically, there is a countdown inside the timer for the framerate. It's like telling the function "what would you like to count to every second, and every time you count to that number tell me a second has gone by". A little convoluted maybe, but it was interesting to see the second argument in the setInterval() function take a variable. 
 
 And what does the function "remove(monkey)" do, you might ask? Well let me tell you.
 
