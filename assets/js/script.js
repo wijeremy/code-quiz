@@ -165,7 +165,7 @@ function runGame(){
             btnOff();
             
             monkeyUp();
-            var timeOut = 10
+            var timeOut = 10;
             var timeOutEl = document.createElement("h2");
             timeOutEl.setAttribute("id", "timeOut")
             timeOutEl.textContent = "";
