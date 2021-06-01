@@ -31,6 +31,7 @@ reset.addEventListener("click", function(){
 if (localBoard == null) {
     var tempArray = sortArray(scoreBoard);
     localStorage.setItem("board", JSON.stringify(tempArray));
+    location.reload();
 }
 
 function sortArray(array) {
